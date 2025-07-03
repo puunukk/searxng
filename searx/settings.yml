@@ -25,10 +25,10 @@ brand:
   # issue_url: https://github.com/searxng/searxng/issues
   custom:
     maintainer: "PuuNukk"
-  #   # Custom entries in the footer: [title]: [link]
-  #   links:
-  #     Uptime: https://uptime.searxng.org/history/darmarit-org
-  #     About: "https://otsi.puunukk.eu"
+    # Custom entries in the footer: [title]: [link]
+    links:
+      Uptime: https://uptime.searxng.org/history/darmarit-org
+      About: "https://otsi.puunukk.eu"
 
 search:
   # Filter results. 0: None, 1: Moderate, 2: Strict
