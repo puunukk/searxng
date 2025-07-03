@@ -7,9 +7,9 @@ general:
   privacypolicy_url: false
   # use true to use your own donation page written in searx/info/en/donate.md
   # use false to disable the donation link
-  donation_url: false
+  donation_url: true
   # mailto:contact@example.com
-  contact_url: false
+  contact_url: true
   # record stats
   enable_metrics: true
   # expose stats in open metrics format at /metrics
@@ -48,7 +48,7 @@ search:
   # max_page: 0  # if engine supports paging, 0 means unlimited numbers of pages
   # Available languages
   languages:
-  #   - all
+    - all
     - et
     - et-EE
     - en
