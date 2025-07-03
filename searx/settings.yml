@@ -26,10 +26,10 @@ brand:
   custom:
     maintainer: "PuuNukk"
     # Custom entries in the footer: [title]: [link]
-    links:
-      Uptime: https://uptime.searxng.org/history/darmarit-org
-      About: "https://otsi.puunukk.eu"
-      Contact: "https://otsxng.puunukk.eu/contact"
+    links: {}  # Empty = no custom footer links
+      # Uptime: https://uptime.searxng.org/history/darmarit-org
+      # About: "https://otsi.puunukk.eu"
+      # Contact: "https://otsxng.puunukk.eu/contact"
 
 search:
   # Filter results. 0: None, 1: Moderate, 2: Strict
