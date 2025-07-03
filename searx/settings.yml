@@ -48,7 +48,7 @@ search:
   # max_page: 0  # if engine supports paging, 0 means unlimited numbers of pages
   # Available languages
   languages:
-    - all
+    # - all
     - et
     - et-EE
     - en
