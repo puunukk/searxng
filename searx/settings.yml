@@ -18,11 +18,11 @@ general:
   open_metrics: ''
 
 brand:
-  new_issue_url: false # https://github.com/searxng/searxng/issues/new
-  docs_url: false # https://docs.searxng.org/
-  public_instances: false # https://searx.space
-  wiki_url: false # https://github.com/searxng/searxng/wiki
-  issue_url: false # https://github.com/searxng/searxng/issues
+  new_issue_url: "" # https://github.com/searxng/searxng/issues/new
+  docs_url: "" # https://docs.searxng.org/
+  public_instances: "" # https://searx.space
+  wiki_url: "" # https://github.com/searxng/searxng/wiki
+  issue_url: "" # https://github.com/searxng/searxng/issues
   custom:
     maintainer: "PuuNukk"
     # Custom entries in the footer: [title]: [link]
