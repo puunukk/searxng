@@ -1,8 +1,9 @@
 FROM ghcr.io/searxng/base:searxng-builder AS builder
 
 COPY ./requirements.txt ./requirements.txt
+
 # add missing lib
-RUN pip install httpx
+# RUN pip install httpx
 
 RUN --mount=type=cache,id=pip,target=/root/.cache/pip python -m venv ./venv \
  && . ./venv/bin/activate \
