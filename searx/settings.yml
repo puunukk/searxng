@@ -18,17 +18,18 @@ general:
   open_metrics: ''
 
 brand:
-  # new_issue_url: https://github.com/searxng/searxng/issues/new
+  new_issue_url: https://github.com/searxng/searxng/issues/new
   docs_url: https://docs.searxng.org/
-  # public_instances: https://searx.space
+  public_instances: https://searx.space
   wiki_url: https://github.com/searxng/searxng/wiki
-  # issue_url: https://github.com/searxng/searxng/issues
+  issue_url: https://github.com/searxng/searxng/issues
   custom:
     maintainer: "PuuNukk"
     # Custom entries in the footer: [title]: [link]
     links:
       Uptime: https://uptime.searxng.org/history/darmarit-org
       About: "https://otsi.puunukk.eu"
+      Contact: "https://otsxng.puunukk.eu/contact"
 
 search:
   # Filter results. 0: None, 1: Moderate, 2: Strict
