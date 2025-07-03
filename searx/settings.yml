@@ -47,10 +47,12 @@ search:
   default_lang: "auto"
   # max_page: 0  # if engine supports paging, 0 means unlimited numbers of pages
   # Available languages
-  # languages:
+  languages:
   #   - all
-  #   - en
-  #   - en-US
+    - et
+    - et-EE
+    - en
+    - en-US
   #   - de
   #   - it-IT
   #   - fr
