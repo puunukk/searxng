@@ -1,0 +1,16 @@
+name: otsXng
+services:
+  - name: searxng
+    source_dir: /
+    dockerfile_path: container/Dockerfile
+    github:
+      repo: puunukk/searxng
+      branch: master
+    environment_slug: basic-xxs
+    instance_count: 1
+    envs:
+      - key: SEARXNG_SETTINGS_PATH
+        value: /app/searx/settings.yml
+      - key: SEARXNG_SECRET
+        value: tere-vana-kera
+    http_port: 8080
