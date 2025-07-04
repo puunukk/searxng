@@ -1,13 +1,16 @@
-FROM python:3.13
+FROM python:3.13-alpine
 
 COPY . /app
 WORKDIR /app
 
 # Install dependencies first
 RUN pip install -r requirements.txt
+RUN pip install "setuptools<71.0.0" wheel
 
 # Install SearXNG itself as a package (this is the key step we were missing)
-RUN pip install --use-pep517 --no-build-isolation -e .
+#RUN pip install --use-pep517 --no-build-isolation -e .
+RUN pip install --use-pep517 -e .
+
 
 # The documentation shows SearXNG looks for environment variables
 # We'll use those to override the default settings
