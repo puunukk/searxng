@@ -10,15 +10,15 @@ RUN adduser -D -h /usr/local/searxng -s /bin/sh searxng \
     && mkdir -p /etc/searxng /usr/local/searxng/run \
     && chown -R searxng:searxng /etc/searxng /usr/local/searxng
 
+WORKDIR /app
+
+COPY . .
+
 RUN pip install "setuptools<71.0.0" wheel
 # Install SearXNG itself as a package (this is the key step we were missing)
 #RUN pip install --use-pep517 --no-build-isolation -e .
 RUN pip install --no-use-pep517 -e .
 
-
-WORKDIR /app
-
-COPY . /app
 # Install dependencies first
 RUN pip install -r requirements.txt
 
