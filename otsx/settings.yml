@@ -1,34 +1,191 @@
+# OtsX Search Engine Configuration
+# =================================
+# This configuration inherits from SearXNG's default settings and only overrides
+# specific values needed for OtsX branding and customization.
+#
+# Based on: utils/templates/etc/searxng/settings.yml
+# Documentation: https://docs.searxng.org/admin/settings/
+
+# CORE INHERITANCE
+# ================
+# This is the key directive that loads all default SearXNG settings.
+# We only override specific values below while keeping everything else as defaults.
 use_default_settings: true
 
+# GENERAL INSTANCE SETTINGS
+# =========================
 general:
-  instance_name: "OtsX"
+  # Development mode - should always be false in production
+  # Can be overridden by ${SEARXNG_DEBUG} environment variable
   debug: false
+  
+  # Display name shown in page titles, headers, and throughout the interface
+  # This is the primary branding element for your instance
+  instance_name: "OtsX"
+  
+  # Privacy policy URL - set to false to disable the privacy policy link
+  # If you have a custom privacy policy, set this to your URL
+  privacypolicy_url: false
+  
+  # Donation page - set to false to disable donation links entirely
+  # Use true to enable custom donation page in searx/info/en/donate.md
   donation_url: false
+  
+  # Contact information - set to false to disable contact links
+  # Example: "mailto:admin@example.com" or "https://example.com/contact"
   contact_url: false
+  
+  # Enable internal metrics collection for monitoring search performance
+  # Useful for instance administrators to track usage and performance
   enable_metrics: true
 
+# SEARCH BEHAVIOR SETTINGS
+# ========================
+search:
+  # Safe search filter level:
+  # 0: None (no filtering)
+  # 1: Moderate (filter explicit content)
+  # 2: Strict (aggressive filtering)
+  safe_search: 2
+  
+  # Autocomplete backend for search suggestions
+  # Available: "360search", "baidu", "brave", "dbpedia", "duckduckgo", "google", 
+  # "yandex", "mwmbl", "naver", "seznam", "sogou", "startpage", "stract", 
+  # "swisscows", "quark", "qwant", "wikipedia"
+  # Leave blank to disable autocomplete
+  autocomplete: 'duckduckgo'
+  
+  # Supported output formats for search results
+  # Available: html, csv, json, rss
+  # Remove formats you don't want to support
+  formats:
+    - html
+    - json
+
+# SERVER CONFIGURATION
+# ===================
+server:
+  # Secret key for session management and security
+  # CRITICAL: Change this in production! 
+  # Can be overridden by ${SEARXNG_SECRET} environment variable
+  secret_key: "ultrasecretkey"
+  
+  # Enable rate limiting to prevent abuse and bot traffic
+  # Helps protect your instance from being overwhelmed
+  # Can be overridden by ${SEARXNG_LIMITER} environment variable
+  limiter: true
+  
+  # Enable image proxy to serve images through your instance
+  # Improves privacy by not exposing user IP to image hosts
+  # Can be overridden by ${SEARXNG_IMAGE_PROXY} environment variable
+  image_proxy: true
+  
+  # Base URL of your instance for correct link generation
+  # Important for proper functioning behind reverse proxies
+  # Can be overridden by ${SEARXNG_BASE_URL} environment variable
+  # Example: base_url: https://search.example.com
+  # base_url: http://example.com/location
+
+# REDIS CACHE CONFIGURATION
+# =========================
+# Redis is used for caching, session storage, and rate limiting
+redis:
+  # Redis connection URL
+  # Can be overridden by ${SEARXNG_REDIS_URL} environment variable
+  # Examples:
+  #   - Unix socket: unix:///var/run/redis/redis.sock?db=0
+  #   - TCP: redis://localhost:6379/0
+  #   - With auth: redis://:password@localhost:6379/0
+  url: unix:///usr/local/searxng-redis/run/redis.sock?db=0
+
+# USER INTERFACE SETTINGS
+# =======================
+ui:
+  # Enable static file hash versioning for better caching
+  # Appends hash to static file URLs to bust cache when files change
+  static_use_hash: true
+  
+  # Default theme for the interface
+  # SearXNG comes with 'simple' theme by default
+  default_theme: simple
+  
+  # Center search results on the page
+  # false = left-aligned, true = centered
+  center_alignment: false
+
+# BRAND CUSTOMIZATION
+# ===================
+# These settings control external links and branding elements
 brand:
-  issue_url: ""
+  # Disable all external SearXNG project links
+  # Set to empty strings to remove footer links to SearXNG project
+  new_issue_url: ""
   docs_url: ""
   public_instances: ""
   wiki_url: ""
+  issue_url: ""
+  
+  # Custom branding section
   custom:
+    # Instance maintainer name (shown in footer)
+    maintainer: "OtsX Admin"
+    
+    # Custom footer links - add your own links here
+    # Format: "Link Text": "https://example.com"
     links: {}
+      # Documentation: "https://docs.otsx.example.com"
+      # Status: "https://status.otsx.example.com"
+      # About: "https://about.otsx.example.com"
 
-server:
-  public_instance: false
-  limiter: false
-  image_proxy: false
+# OUTGOING REQUEST CONFIGURATION
+# ==============================
+outgoing:
+  # Default timeout for search engine requests (in seconds)
+  # Shorter timeouts provide faster responses but may miss slower engines
+  request_timeout: 3.0
+  
+  # Maximum number of concurrent connections to search engines
+  # Higher values allow more parallel requests but use more resources
+  pool_connections: 100
+  
+  # Connection pool size for reusing connections
+  # Helps reduce connection overhead for repeated requests
+  pool_maxsize: 20
+  
+  # Enable HTTP/2 support for better performance with compatible engines
+  enable_http2: true
+  
+  # Custom User-Agent suffix for identifying your instance
+  # Can include contact information for engine administrators
+  useragent_suffix: ""
 
-ui:
-  default_theme: simple
-  results_on_new_tab: false
-  query_in_title: false
-  infinite_scroll: false
+# PREFERENCE LOCKING
+# ==================
+# Uncomment to lock specific preferences and prevent users from changing them
+# This is useful for maintaining consistent behavior across your instance
+# preferences:
+#   lock:
+#     - autocomplete    # Lock autocomplete backend choice
+#     - method         # Lock search method (GET/POST)
+#     - safesearch     # Lock safe search level
+#     - theme          # Lock theme choice
+#     - language       # Lock language selection
+#     - categories     # Lock category selection
 
-search:
-  safe_search: 0
-  autocomplete: ""
-  formats:
-    - html
-    - json 
+# CUSTOM ENGINE CONFIGURATION
+# ===========================
+# Uncomment and modify to enable/disable specific search engines
+# This allows you to customize which sources your instance searches
+# engines:
+#   # Enable F-Droid app search
+#   - name: fdroid
+#     disabled: false
+#   
+#   # Enable APK Mirror search
+#   - name: apk mirror
+#     disabled: false
+#   
+#   # Enable German TV content search
+#   - name: mediathekviewweb
+#     categories: TV
+#     disabled: false 
