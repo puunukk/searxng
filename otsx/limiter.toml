@@ -1,0 +1,30 @@
+[real_ip]
+# Number of values to trust for X-Forwarded-For
+x_for = 1
+
+# IP prefix for network comparison
+ipv4_prefix = 32
+ipv6_prefix = 48
+
+[botdetection.ip_limit]
+# Don't monitor link-local addresses in private networks
+filter_link_local = false
+
+# Disable link_token method for private instance
+link_token = false
+
+[botdetection.ip_lists]
+# IP-based blocking/allowing
+
+block_ip = [
+  # Add IPs to block here
+]
+
+pass_ip = [
+  "192.168.0.0/16",      # Private networks
+  "10.0.0.0/8",          # Private networks  
+  "172.16.0.0/12",       # Private networks
+]
+
+# Don't use SearXNG organization passlist for private instance
+pass_searxng_org = false 

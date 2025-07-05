@@ -1,0 +1,52 @@
+services:
+  otsx:
+    build:
+      context: ..
+      dockerfile: otsx/Dockerfile
+    container_name: otsx
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      # Config volumes - mount your configurations
+      - ./settings.yml:/etc/searxng/settings.yml:ro
+      - ./uwsgi.ini:/etc/searxng/uwsgi.ini:ro
+      - ./limiter.toml:/etc/searxng/limiter.toml:ro
+      # Data volume - persistent cache
+      - otsx_cache:/var/cache/searxng
+    environment:
+      - SEARXNG_BASE_URL=https://otsx.example.eu/
+      - INSTANCE_NAME=OtsX
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
+  # Caddy reverse proxy - uncomment for production with HTTPS
+  # caddy:
+  #   image: caddy:2-alpine
+  #   container_name: otsx-caddy
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./Caddyfile:/etc/caddy/Caddyfile:ro
+  #     - caddy_data:/data
+  #     - caddy_config:/config
+  #   environment:
+  #     - SEARXNG_HOSTNAME=otsx.example.eu
+  #   depends_on:
+  #     - otsx
+
+volumes:
+  otsx_cache:
+  # caddy_data:
+  # caddy_config: 
